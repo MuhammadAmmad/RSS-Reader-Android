@@ -215,7 +215,7 @@ public class ScrollingActivity extends AppCompatActivity {
         isLoading = true;
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching data from web...");
+        progressDialog.setMessage("Fetching data from web..");
         progressDialog.show();
     }
 
