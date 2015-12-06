@@ -90,7 +90,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (!isLoading) {
                     getDataFromWeb();
                 } else {
-                    Toast.makeText(ScrollingActivity.this, "Please wait..", Toast.LENGTH_SHORT).show();
+                    showToast("Please wait..");
                 }
                 break;
         }
@@ -123,10 +123,11 @@ public class ScrollingActivity extends AppCompatActivity {
                     InputStream inputStream = connection.getInputStream();
                     result = parseXML(inputStream);
                 } else {
-                    throw new Exception("error");
+                    showToast("Please check your connection and try again.");
                 }
             } catch (Exception e) {
                 Log.d("Exception", e.getMessage());
+                showToast("Please check your connection and try again.");
             }
             return result;
         }
@@ -229,5 +230,9 @@ public class ScrollingActivity extends AppCompatActivity {
     private void getDataFromWeb() {
         GetRssClass fetchRss = new GetRssClass(mFeedUrl);
         fetchRss.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(ScrollingActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }
