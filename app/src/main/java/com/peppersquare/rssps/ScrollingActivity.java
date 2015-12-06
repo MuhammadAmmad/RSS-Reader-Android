@@ -123,11 +123,11 @@ public class ScrollingActivity extends AppCompatActivity {
                     InputStream inputStream = connection.getInputStream();
                     result = parseXML(inputStream);
                 } else {
-                    showToast("Please check your connection and try again.");
+                    return null;
                 }
             } catch (Exception e) {
                 Log.d("Exception", e.getMessage());
-                showToast("Please check your connection and try again.");
+                return null;
             }
             return result;
         }
@@ -136,12 +136,15 @@ public class ScrollingActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
             super.onPostExecute(result);
-            Log.d("result ", String.valueOf(result));
             hideProgressDialog();
-            int before = resultItems.size();
-            resultItems.addAll(result);
-            mAdapter.notifyItemRangeInserted(before, result.size());
-            mRecyclerView.invalidate();
+            if (result == null) {
+                showToast("Please check your connection and try again.");
+            }else{
+                int before = resultItems.size();
+                resultItems.addAll(result);
+                mAdapter.notifyItemRangeInserted(before, result.size());
+                mRecyclerView.invalidate();
+            }
         }
 
         private ArrayList<HashMap<String, String>> parseXML(InputStream inputStream)
