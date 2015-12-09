@@ -141,6 +141,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 showToast("Please check your connection and try again.");
             }else{
                 int before = resultItems.size();
+                resultItems.clear();
                 resultItems.addAll(result);
                 mAdapter.notifyItemRangeInserted(before, result.size());
                 mRecyclerView.invalidate();
